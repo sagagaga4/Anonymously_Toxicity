@@ -1,0 +1,61 @@
+body{
+    text-align: center;
+    background-color: black;
+    color:white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.post-form {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#post-input {
+    resize: none;
+    width: 500px;
+    border: 2px solid black;
+    height: 20px;
+    background-color: white;
+    color:black;
+    padding: 10px;
+}
+
+#post-button {
+    font-weight: bold;
+    background-color: gray; /* Default gray color */
+    border-radius: 20px;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth color transition */
+}
+
+#post-button.green {
+    background-color: white; 
+}
+
+#post-button:hover {
+    background-color: #898F9C;
+}
+
+#posts {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.anonymous-label{
+    font-size: 10px;
+}
+.post {
+    color:cyan;
+    background-color: black;
+    padding: 10px;
+    margin: 10px 0;
+    border-top: 1px solid white;
+    display: flex;
+}
+.delete-post{
+    margin-left: auto;
+    color: gray;
+    cursor: pointer;
+}
