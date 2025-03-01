@@ -1,61 +1,172 @@
 body{
-    text-align: center;
     background-color: black;
     color:white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .post-form {
-    margin: 20px 0;
     text-align: center;
 }
 
 #post-input {
-    resize: none;
-    width: 500px;
-    border: 2px solid black;
-    height: 20px;
-    background-color: white;
-    color:black;
-    padding: 10px;
+    width: 100%; /* Full width on mobile */
+    max-width: 540px; /* Cap width on desktop, matching #posts */
+    height: 70px; 
+    background-color: black; /* Twitter-like light gray background */
+    color: white;
+    border:none;
+    padding: 10px 15px;
+    font-size: 15px; 
+    resize: none; 
+    box-sizing: border-box; 
+    outline: none;
+    margin-top: 0; /* Remove any extra margin */
+    transition: border-color 0.3s; 
 }
 
+#post-input:focus {
+    border-color: #56526e;
+}
 #post-button {
+    margin-top: 10px; /* Keep spacing below input */
     font-weight: bold;
-    background-color: gray; /* Default gray color */
-    border-radius: 20px;
-    color: black;
+    background-color: #56526e; 
+    border-radius:70px;
+    color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Smooth color transition */
+    transition: background-color 0.3s; 
 }
 
 #post-button.green {
-    background-color: white; 
+    background-color: #908caa; 
 }
 
 #post-button:hover {
-    background-color: #898F9C;
+    background-color: #908caa; 
 }
 
 #posts {
-    max-width: 600px;
+    max-width: 600px; 
     margin: 0 auto;
+    width: 100%; 
+}
+
+.post {
+    background-color: black;
+    padding: 10px;
+    margin: 10px 0;
+    border-top: 1px solid #555;
+    position: relative;
+    min-height: 80px; 
+    display: flex;
+    flex-direction: column;
+    width: 100%; 
+    max-width: 600px; 
+    box-sizing: border-box; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
 }
 
 .anonymous-label{
     font-size: 10px;
 }
-.post {
-    color:cyan;
-    background-color: black;
-    padding: 10px;
-    margin: 10px 0;
-    border-top: 1px solid white;
-    display: flex;
-}
-.delete-post{
-    margin-left: auto;
-    color: gray;
+
+.like-btn {
+    color: white; /* Default gray/white heart, matching body color */
     cursor: pointer;
+    font-size: 18px; /* Larger for visibility, like Twitter */
+    transition: color 0.3s, transform 0.3s; /* Smooth color and scale */
+    margin-right: 5px; /* Space before count */
+}
+
+.like-btn.liked {
+    color: purple; /* Purple when liked */
+}
+
+.animate-like-btn {
+    animation: likePulse 0.5s ease-out;
+    will-change: transform;
+}
+
+.like-count {
+    color: #999; /* Gray like Twitter */
+    font-size: 10px;
+    margin-left: -180px; /* Space after heart */
+    margin-top: 5px;
+}
+
+@keyframes likePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.delete-post{
+    font-size: 10px;
+    color: lightgray;
+    margin-top: -15px;
+    margin-left: auto;
+    cursor: pointer;
+}
+.post-actions {
+    margin-top: 10px;
+    margin-right:auto;
+    font-size: 12px;
+    color:lightgray;
+    display: flex;
+    justify-content: space-between; 
+    gap: 180px;
+    box-sizing: border-box; 
+    word-wrap: break-word; 
+    align-items: center; 
+    margin-top: 20px;
+    cursor: pointer;
+}
+/* Media Query for Mobile Devices (screens smaller than 768px) */
+@media screen and (max-width: 768px) {
+    #posts {
+        max-width: 100%; /* Full width on mobile */
+    }
+
+    .post {
+        max-width: 100%; /* Full width on mobile */
+        padding: 8px; /* Reduce padding on mobile */
+        min-height: 70px; /* Slightly smaller for mobile */
+    }
+
+    .post-content {
+        margin-bottom: 8px; /* Reduce margin on mobile */
+    }
+
+    .post-divider {
+        margin: 8px 0; /* Reduce margin on mobile */
+    }
+
+    .post-actions {
+        gap: 10px; /* Slightly tighter spacing on mobile */
+        padding-bottom: 8px; /* Reduce padding on mobile */
+    }
+
+    .action-button {
+        padding: 4px 8px; /* Smaller buttons on mobile */
+        font-size: 12px; /* Smaller text on mobile */
+    }
+
+    #post-input {
+        max-width: 100%; /* Full width on mobile */
+        height: 30px; /* Slightly smaller height on mobile */
+    }
+
+    #post-button {
+        padding: 8px 16px; /* Smaller button on mobile */
+    }
+    .like-btn {
+        font-size: 16px; /* Slightly smaller on mobile */
+    }
+
+    .like-count {
+        font-size: 10px; /* Smaller count on mobile */
+        margin-left: auto;
+    }
 }
