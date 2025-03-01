@@ -1,1 +1,24 @@
-<img width="1175" alt="Screenshot 2025-02-27 at 19 36 55" src="https://github.com/user-attachments/assets/ade24099-64c3-4508-9cc1-461ad62802bc" />
+This is a simple, Twitter/X-like posting board application built using PHP, JavaScript, and CSS. It allows users to create, view, like, and delete anonymous posts, mimicking Twitter’s (X’s) layout and functionality. Posts are stored server-side in a text file (posts.txt) and updated live in the browser using AJAX. The app is developed and edited in Neovim, served via PHP’s built-in server, and managed with tmux for a streamlined workflow.
+Features
+
+$-Anonymous Posting: Users can submit text posts anonymously, numbered sequentially (e.g., “Anonymous - 1”).
+$-Live Updates: Posts, likes, and deletions update in real-time without page reloads using JavaScript and AJAX.
+$-Like System: Posts have a “Like” button with a Twitter-like heart animation (pulse effect) and a count, persisting client-side with localStorage (or optionally server-side with PHP).
+$-Delete Posts: Users can delete individual posts with a “Delete” button.
+$-Responsive Design: The app is fully responsive, with symmetrical post boxes, text wrapping, and mobile-friendly layouts for desktops and phones.
+$-X-Like Layout: Posts feature content at the top, a divider line, and action buttons (Comment, Repost, Like, Delete) at the bottom, centered and evenly spaced.
+
+File Structure
+
+Below is the structure of the key files in this Twitter/X-inspired posting board project, located in the root directory of the repository:
+
+$-index.php: The main HTML/PHP file that serves as the interface, loads initial posts, and handles form submissions.
+$-styles.css: Contains CSS styling for posts, the input box, buttons, and responsive design for desktop and mobile.
+$-script.js: JavaScript file managing live updates, posting, liking, deleting, and dynamic interactions via AJAX.
+$-save_post.php: PHP script responsible for saving new posts to posts.txt on the server.
+$-delete_post.php: PHP script for deleting specific posts from posts.txt.
+$-load_posts.php: PHP script that returns posts as JSON for real-time updates in the browser.
+$-posts.txt: A text file storing all posts, with one post per line, located in the root directory.
+
+![AT_WebView](https://github.com/user-attachments/assets/5a5b1cda-ab10-4e46-8544-3be1b13502e0)
+![AT_PhoneView](https://github.com/user-attachments/assets/dd9dcc3d-cef7-43ca-ab75-1b5b46f29453)
