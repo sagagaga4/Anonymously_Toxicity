@@ -7,11 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>*Anonymous Toxicity*</h1>
-    <p>This is just another <u>toxic</u> web page.</p>
     <div id="new_app"></div>
-    <h2 style="color:#00FF00;">Try It</h2>
-    <img src="always.gif" alt="always" style="width:100px;height:100px;">
     <div class="post-form">
         <form id="post-form" method="POST" action="save_post.php">
             <textarea id="post-input" name="post" placeholder="What's up with you?"></textarea>
@@ -26,13 +22,22 @@
         //Reversing the array LIFO and 
             foreach (array_reverse($posts) as $index => $post) {
                 echo "<div class='post'>";
-                echo "<u class='anonymous-label' style='color: white;'>#Anonymous" . htmlspecialchars($index + 1 ) . " </u>#"; 
+
+                $image='<img src="./always.gif" width="18" height="18" style=border-radius:50px;>';
+                echo $image;
+                echo "<u class='anonymous-label' style='color:#9debeb;' >#Anonymous" . htmlspecialchars($index + 1 ) . " </u> "; 
                 echo "<span>" . htmlspecialchars($post) . "</span>";
+                echo "<div class='post-actions'>";
+                echo "<span class='comment' data-index='$index'>Comment</span>";
+                echo "<span class='repost' data-index='$index'>Repost</span>";
+                echo "<span class='like-btn' data-index='$index'>♡</span>";
+                echo "<span class='like-count' data-index='$index'>0</span>";
+                echo "</div>";
                 echo "<span class='delete-post' data-index='$index'>x</span>";
                 echo "</div>";
-                }
             }
-        ?>
+        }
+?>
     </div>
     <script src="script.js"></script>
 </body>
