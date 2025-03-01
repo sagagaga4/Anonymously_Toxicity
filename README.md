@@ -1,8 +1,8 @@
-#X Like Wall
+# X Like Wall
 
 This is a simple, Twitter/X-like posting board application built using PHP, JavaScript, and CSS. It allows users to create, view, like, and delete anonymous posts, mimicking Twitter’s (X’s) layout and functionality. Posts are stored server-side in a text file (posts.txt) and updated live in the browser using AJAX. The app is developed and edited in Neovim, served via PHP’s built-in server, and managed with tmux for a streamlined workflow.
 
-##Features
+## Features
 
 * Anonymous Posting - Users can submit text posts anonymously, numbered sequentially (e.g., “Anonymous - 1”).
 
@@ -16,7 +16,7 @@ This is a simple, Twitter/X-like posting board application built using PHP, Java
 
 * X-Like Layout - Posts feature content at the top, a divider line, and action buttons (Comment, Repost, Like, Delete) at the bottom, centered and evenly spaced.
 
-##File Structure
+## File Structure
 
 Below is the structure of the key files in this Twitter/X-inspired posting board project, located in the root directory of the repository:
 
