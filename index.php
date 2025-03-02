@@ -33,6 +33,7 @@
                 echo "<span class='like-btn' data-index='$index'>♡</span>";
                 echo "<span class='like-count' data-index='$index'>0</span>";
                 echo "</div>";
+                
                 echo "<span class='delete-post' data-index='$index'>x</span>";
                 echo "</div>";
             }
