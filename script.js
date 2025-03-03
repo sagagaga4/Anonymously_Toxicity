@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 // Add like listeners after page load
+
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".like-btn").forEach(button => {
         let index = button.getAttribute("data-index");
@@ -34,7 +35,20 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!countElement || !countElement.classList.contains("like-count")) {
             countElement = document.createElement("span");
             countElement.className = "like-count";
-            countElement.textContent = localStorage.getItem(`likeCount_${index}`) || 0;
+            // Synchronize count with like state on load, handling missing or inconsistent data
+            let isLiked = localStorage.getItem(`like_${index}`) === "true";
+            let storedCount = parseInt(localStorage.getItem(`likeCount_${index}`) || "0");
+
+            // Reset inconsistent states: if liked but count is 0 or missing, unlike it
+            if (isLiked && (storedCount === 0 || isNaN(storedCount))) {
+                localStorage.setItem(`like_${index}`, "false");
+                localStorage.setItem(`likeCount_${index}`, "0");
+                isLiked = false;
+                storedCount = 0;
+            }
+
+            // Set initial state and count
+            countElement.textContent = isLiked ? Math.max(1, storedCount) : "";
             button.parentNode.appendChild(countElement);
         }
 
@@ -53,10 +67,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// Function to toggle like state
 function toggleLike(index, button, countElement) {
     let isLiked = localStorage.getItem(`like_${index}`) === "true";
-    let count = parseInt(localStorage.getItem(`likeCount_${index}`) || 0);
+    let count = parseInt(localStorage.getItem(`likeCount_${index}`) || "0");
 
     if (isLiked) {
         button.textContent = "♡";
@@ -67,8 +80,9 @@ function toggleLike(index, button, countElement) {
         button.classList.add("liked", "animate-like-btn"); // Add animation class
         count += 1; // Increment
     }
+    // Ensure state and count are synchronized, handling missing data
     localStorage.setItem(`like_${index}`, !isLiked);
-    localStorage.setItem(`likeCount_${index}`, count);
+    localStorage.setItem(`likeCount_${index}`, count.toString()); // Ensure string for consistency
     countElement.textContent = count > 0 ? count : ""; // Update count, hide if 0
     setTimeout(() => button.classList.remove("animate-like-btn"), 500); // Remove animation after 0.5s
 }
