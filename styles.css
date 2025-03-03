@@ -84,6 +84,34 @@ body{
     color: purple; /* Purple when liked */
 }
 
+.like-btn:hover {
+    position: relative; /* Ensure positioning for pseudo-element */
+}
+
+.like-btn:hover::after {
+    content: ""; /* Create the hover effect */
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    width: 24px; /* Size of the circle, slightly larger than the heart */
+    height: 24px; /* Size of the circle, slightly larger than the heart */
+    border-radius: 50%; /* Circular shape */
+    background-color: #ff0000; /* Filled red circle, like Twitter/X */
+    transform: translate(-50%, -50%); /* Center the circle on the heart */
+    z-index: 2; /* Above the heart but below other elements if needed */
+    pointer-events: none; /* Prevent interfering with clicks */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease-in-out; /* Smooth fade effect */
+    animation: fadeInCircle 0.3s ease-in-out forwards; /* Fade in on hover */
+}
+
+.like-btn.liked:hover::after {
+    background-color: #c92424; /* Ensure red outline for purple heart */
+}
+@keyframes fadeInCircle {
+    0% { opacity: 0; }
+    100% { opacity: 0.2; } /* Slightly transparent for a subtle fade */
+}
 .animate-like-btn {
     animation: likePulse 0.5s ease-out;
     will-change: transform;
