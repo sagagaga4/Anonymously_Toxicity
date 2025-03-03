@@ -4,7 +4,7 @@ This is a simple, Twitter/X-like posting board application built using PHP, Java
 
 ## Features
 
-* Anonymous Posting - Users can submit text posts anonymously, numbered sequentially (e.g., “Anonymous - 1”).
+* Anonymous Posting - Users can submit text posts anonymously, numbered sequentially (e.g., “Anonymous - 1”), alternated gifs for profile pics. 
 
 * Live Updates - Posts, likes, and deletions update in real-time without page reloads using JavaScript and AJAX.
 
@@ -33,7 +33,6 @@ Below is the structure of the key files in this Twitter/X-inspired posting board
 * load_posts.php: PHP script that returns posts as JSON for real-time updates in the browser.
 
 * posts.txt: A text file storing all posts, with one post per line, located in the root directory.
+![AT_WebView](https://github.com/user-attachments/assets/65d61ce2-a925-42e8-9806-595fbf396b52)
+![AT_PhoneView](https://github.com/user-attachments/assets/3606daf7-2060-497c-a19f-275699e89364)
 
-![AT_WebView](https://github.com/user-attachments/assets/5a5b1cda-ab10-4e46-8544-3be1b13502e0)
-
-![AT_PhoneView](https://github.com/user-attachments/assets/dd9dcc3d-cef7-43ca-ab75-1b5b46f29453)
