@@ -33,6 +33,7 @@ Below is the structure of the key files in this Twitter/X-inspired posting board
 * load_posts.php: PHP script that returns posts as JSON for real-time updates in the browser.
 
 * posts.txt: A text file storing all posts, with one post per line, located in the root directory.
-![AT_WebView](https://github.com/user-attachments/assets/65d61ce2-a925-42e8-9806-595fbf396b52)
-![AT_PhoneView](https://github.com/user-attachments/assets/3606daf7-2060-497c-a19f-275699e89364)
+![Screenshot 2025-03-04 at 8 52 56](https://github.com/user-attachments/assets/8eba7b81-46f3-4b97-8249-e72bbf568f72)
+![Screenshot 2025-03-04 at 8 56 16](https://github.com/user-attachments/assets/64472553-4d64-43a7-8e39-864c758f52ab)
+
 
