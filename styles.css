@@ -1,8 +1,9 @@
-body{
+body {
     background-color: black;
-    color:white;
+    color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 .post-form {
     text-align: center;
 }
@@ -13,7 +14,7 @@ body{
     height: 70px; 
     background-color: black; /* Twitter-like light gray background */
     color: white;
-    border:none;
+    border: none;
     padding: 10px 15px;
     font-size: 15px; 
     resize: none; 
@@ -26,11 +27,11 @@ body{
 #post-input:focus {
     border-color: #56526e;
 }
+
 #post-button {
-    margin-top: 10px; /* Keep spacing below input */
     font-weight: bold;
     background-color: #56526e; 
-    border-radius:70px;
+    border-radius: 70px;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -68,7 +69,7 @@ body{
     overflow-wrap: break-word; 
 }
 
-.anonymous-label{
+.anonymous-label {
     font-size: 10px;
 }
 
@@ -76,7 +77,7 @@ body{
     color: white; /* Default gray/white heart, matching body color */
     cursor: pointer;
     font-size: 18px; /* Larger for visibility, like Twitter */
-    transition: color 0.3s, transform 0.3s; /* Smooth color and scale */
+    transition: color 0.1s, transform 0.1s; /* Smooth color and scale */
     margin-right: 5px; /* Space before count */
 }
 
@@ -101,17 +102,19 @@ body{
     z-index: 2; /* Above the heart but below other elements if needed */
     pointer-events: none; /* Prevent interfering with clicks */
     opacity: 0; /* Initially hidden */
-    transition: opacity 0.3s ease-in-out; /* Smooth fade effect */
-    animation: fadeInCircle 0.3s ease-in-out forwards; /* Fade in on hover */
+    transition: opacity 0.1s ease-in-out; /* Smooth fade effect */
+    animation: fadeInCircle 0.1s ease-in-out forwards; /* Fade in on hover */
 }
 
 .like-btn.liked:hover::after {
     background-color: #c92424; /* Ensure red outline for purple heart */
 }
+
 @keyframes fadeInCircle {
     0% { opacity: 0; }
     100% { opacity: 0.2; } /* Slightly transparent for a subtle fade */
 }
+
 .animate-like-btn {
     animation: likePulse 0.5s ease-out;
     will-change: transform;
@@ -130,18 +133,19 @@ body{
     100% { transform: scale(1); }
 }
 
-.delete-post{
+.delete-post {
     font-size: 10px;
     color: lightgray;
     margin-top: -15px;
     margin-left: auto;
     cursor: pointer;
 }
+
 .post-actions {
     margin-top: 10px;
-    margin-right:auto;
+    margin-right: auto;
     font-size: 12px;
-    color:lightgray;
+    color: lightgray;
     display: flex;
     justify-content: space-between; 
     gap: 180px;
@@ -151,6 +155,64 @@ body{
     margin-top: 20px;
     cursor: pointer;
 }
+
+/* Button Container for Add Image and Post Button */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* 20px gap between Add Image and Post button */
+    margin-top: 10px;
+}
+
+/* Image Upload Styles */
+.image-upload-container {
+    display: flex;
+    align-items: center; /* Center vertically */
+}
+
+.image-upload-label {
+    display: inline-flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally within the label */
+    cursor: pointer;
+    color: #9debeb;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: background-color 0.2s;
+}
+
+.image-upload-label:hover {
+    background-color: #222;
+}
+
+.upload-icon {
+    margin-right: 5px;
+}
+
+#selected-file-name {
+    margin-left: 10px;
+    font-size: 12px;
+    color: #999;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+}
+
+.post-image-container {
+    margin: 10px 0;
+    display: flex;
+    justify-content: left;
+}
+
+.post-image {
+    width: 400px; /* Increased size for HD quality */
+    height: auto; /* Maintain aspect ratio */
+    border: 1px solid #333;
+    border-radius: 20px;
+}
+
 /* Media Query for Mobile Devices (screens smaller than 768px) */
 @media screen and (max-width: 768px) {
     #posts {
@@ -189,6 +251,7 @@ body{
     #post-button {
         padding: 8px 16px; /* Smaller button on mobile */
     }
+
     .like-btn {
         font-size: 16px; /* Slightly smaller on mobile */
     }
@@ -197,4 +260,48 @@ body{
         font-size: 10px; /* Smaller count on mobile */
         margin-left: auto;
     }
+
+    .button-container {
+        gap: 15px; /* Slightly smaller gap on mobile */
+    }
+
+    .image-upload-label {
+        padding: 4px 8px; /* Slightly smaller padding on mobile */
+    }
+
+    .post-image {
+        width: 150px; /* Slightly smaller on mobile for HD quality */
+        height: auto;
+    }
+}
+
+.comment-section input[type="text"] {
+    flex: 1;
+    background-color: black;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    outline: none;
+}
+
+.comment-section button {
+    background-color: #56526e; 
+    color: white;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.repost {
+    cursor: pointer;
+}
+
+.repost:hover {
+    text-decoration: underline;
+    color: white;
 }
