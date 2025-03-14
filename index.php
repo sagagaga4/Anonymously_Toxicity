@@ -1,10 +1,9 @@
 <?php
-// Array of GIF URLs (replace with your GIF links or local paths)
 $gifArray = [
-    "https://media.giphy.com/media/3o7aCSPqXE5C6T8tBC/giphy.gif", // Example GIF 1
-    "https://media.giphy.com/media/3o7TKz2oT5vO9A7kQw/giphy.gif", // Example GIF 2
-    "https://media.giphy.com/media/l46Ccr9D5y8i8apvK/giphy.gif", // Example GIF 3
-    "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHNkcDczbWpuNXR6aHVieGlkbG52dThoY2Q5MW5jMngwNm5lemJ1eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l41YxqKAG3dws45va/giphy.gif",
+    "https://media.giphy.com/media/3o7aCSPqXE5C6T8tBC/giphy.gif",
+    "https://media.giphy.com/media/3o7TKz2oT5vO9A7kQw/giphy.gif",
+    "https://media.giphy.com/media/l46Ccr9D5y8i8apvK/giphy.gif",
+    "https://media4.giphy.com/media/l41YxqKAG3dws45va/giphy.gif",
     "https://media1.giphy.com/media/AImT2CvPZvkTC/200.webp?cid=ecf05e470t90j0l04kgus4aihbt88xm8jisg2bua688sr3il&ep=v1_gifs_related&rid=200.webp&ct=g",
     "https://media0.giphy.com/media/Y2CgrQyxLSiS4/200.webp?cid=ecf05e47unbyajx6n1wnjoou4g5cypki3tzc19z9eiyzu6ni&ep=v1_gifs_related&rid=200.webp&ct=g",
     "https://media1.giphy.com/media/xTiTnyh1Dt2F7IiHIs/giphy.webp?cid=ecf05e47vhyl9p39unxmzb4h030qyzqm0h4s2gkg73y4nni1&ep=v1_gifs_related&rid=giphy.webp&ct=g",
@@ -17,7 +16,15 @@ $gifArray = [
     "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTBiaTJxbncwdnpvenQzcHZmaDZ6eXN4eTRpZmtsbTR6bzlmcHZtNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/CnTzlGz79qPUXBpyPL/giphy.webp",
 ];
 
-// Function to get a random GIF
+$comments = file_exists('comments.txt') ? file('comments.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['comment']) && isset($_POST['post_index'])) {
+    $index = (int)$_POST['post_index'];
+    $commentFile = "comments_post_$index.txt";
+    file_put_contents($commentFile, htmlspecialchars($_POST['comment']) . PHP_EOL, FILE_APPEND);
+    header('Location: /');
+    exit;
+}
+
 function getRandomGif($gifArray) {
     return $gifArray[array_rand($gifArray)];
 }
@@ -29,39 +36,88 @@ function getRandomGif($gifArray) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>new_app</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .comment-section { display: none; margin-top: 10px; background-color: black; color: white; }
+        .comment-list { list-style: none; padding: 0; background-color: black; }
+    </style>
 </head>
 <body>
     <div id="new_app"></div>
     <div class="post-form">
-        <form id="post-form" method="POST" action="save_post.php">
+        <form id="post-form" method="POST" action="save_post.php" enctype="multipart/form-data">
             <textarea id="post-input" name="post" placeholder="What's up with you?"></textarea>
-            <button type="submit" id="post-button">Post</button>
+            <div class="button-container">
+                <div class="image-upload-container">
+                    <label for="image-upload" class="image-upload-label">
+                        <span class="upload-icon">📷</span>
+                        <span class="upload-text">Add image</span>
+                    </label>
+                    <input type="file" id="image-upload" name="image" accept="image/*" style="display: none;">
+                    <span id="selected-file-name"></span>
+                </div>
+                <button type="submit" id="post-button">Post</button>
+            </div>
         </form>
     </div>
     <div id="posts">
 <?php
-        if (file_exists("posts.txt")) {
-        //Save the post input in a file named posts.txt
-            $posts = file("posts.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        //Reversing the array LIFO and 
-            foreach (array_reverse($posts) as $index => $post) {
-                $gifUrl = getRandomGif($gifArray); // Assign a random GIF for each post
-                echo "<div class='post'>";
-                echo "<img class='post-avatar' src='$gifUrl' width='18' height='18' style='border-radius: 50px;' alt='Anonymous Avatar'>";
-                echo "<u class='anonymous-label' style='color:#9debeb;' >#Anonymous" . htmlspecialchars($index + 1 ) . " </u> "; 
-                echo "<span>" . htmlspecialchars($post) . "</span>";
-                echo "<div class='post-actions'>";
-                echo "<span class='comment' data-index='$index'>Comment</span>";
-                echo "<span class='repost' data-index='$index'>Repost</span>";
-                echo "<span class='like-btn' data-index='$index'>♡</span>";
-                echo "<span class='like-count' data-index='$index'>0</span>";
-                echo "</div>";
-                echo "<span class='delete-post' data-index='$index'>x</span>";
+    if (file_exists("posts.txt")) {
+        $posts = file("posts.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach (array_reverse($posts) as $index => $post) {
+            $gifUrl = getRandomGif($gifArray);
+            $commentFile = "comments_post_$index.txt";
+            $comments = file_exists($commentFile) ? file($commentFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
+            
+            // Decode JSON post data
+            $postData = json_decode($post, true);
+            $postText = isset($postData['text']) ? $postData['text'] : '';
+            $postImage = isset($postData['image']) ? $postData['image'] : '';
+
+            echo "<div class='post'>";
+            echo "<img class='post-avatar' src='$gifUrl' width='18' height='18' style='border-radius: 50px;' alt='Anonymous Avatar'>";
+            echo "<u class='anonymous-label' style='color:#9debeb;'>#Anonymous" . htmlspecialchars($index + 1) . " </u> ";
+            echo "<span>" . htmlspecialchars($postText) . "</span>";
+
+            // Display the image if it exists
+            if (!empty($postImage) && file_exists('uploads/' . $postImage)) {
+                echo "<div class='post-image-container'>";
+                echo "<img src='uploads/" . htmlspecialchars($postImage) . "' class='post-image' alt='User uploaded image'>";
                 echo "</div>";
             }
+
+            echo "<div class='post-actions'>";
+            echo "<span class='comment' data-index='$index'>Comment</span>";
+            echo "<span class='repost' data-index='$index'>Repost</span>";
+            echo "<span class='like-btn' data-index='$index'>♡</span>";
+            echo "<span class='like-count' data-index='$index'>0</span>";
+            echo "</div>";
+            echo "<div class='comment-section' id='comments-$index'>";
+            echo "<ul class='comment-list'>";
+            foreach ($comments as $comment) {
+                echo "<li>" . htmlspecialchars($comment) . "</li>";
+            }
+            echo "</ul>";
+            echo "<form method='POST'>";
+            echo "<input type='hidden' name='post_index' value='$index'>";
+            echo "<input type='text' name='comment' placeholder='Add a comment' required>";
+            echo "<button type='submit'>Post</button>";
+            echo "</form>";
+            echo "</div>";
+            echo "<span class='delete-post' data-index='$index'>x</span>";
+            echo "</div>";
         }
+    }
 ?>
     </div>
+    <script>
+        document.querySelectorAll('.comment').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const index = btn.getAttribute('data-index');
+                const section = document.getElementById(`comments-${index}`);
+                section.style.display = section.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
