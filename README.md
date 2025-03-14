@@ -16,6 +16,10 @@ This is a simple, Twitter/X-like posting board application built using PHP, Java
 
 * X-Like Layout - Posts feature content at the top, a divider line, and action buttons (Comment, Repost, Like, Delete) at the bottom, centered and evenly spaced.
 
+* Comment Section - User is able to comment on post, I will soon create a like for comment integration don't worry :)
+
+* Image Uploading - User is now able to upload 300px width HD pictures and post them
+     
 ## File Structure
 
 Below is the structure of the key files in this Twitter/X-inspired posting board project, located in the root directory of the repository:
