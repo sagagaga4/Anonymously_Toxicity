@@ -1,12 +1,10 @@
 <?php
 header('Content-Type: application/json');
-
 // Create uploads directory if it doesn't exist
 $uploadsDir = 'uploads/';
 if (!file_exists($uploadsDir)) {
     mkdir($uploadsDir, 0777, true);
 }
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post'])) {
     $post = trim($_POST['post']);
     $imageFileName = '';
